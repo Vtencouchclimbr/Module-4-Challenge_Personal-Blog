@@ -9,7 +9,7 @@ let formSubmission = function(event) {
   const content = document.getElementById('content').value;
 
   if(!username || !title || !content) {
-    alert("Please complete the form");
+    alert("Please complete all fields to continue");
     return;
   }
   
@@ -18,10 +18,15 @@ let formSubmission = function(event) {
     title: title,
     content: content
   };
+
+  const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+  
+  blogPosts.push(formData);
+
 localStorage.setItem('formData', JSON.stringify(formData));
 
 redirectPage('blog.html');
-}
+};
 
 let redirectURL = '';
 
