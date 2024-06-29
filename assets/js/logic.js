@@ -12,7 +12,7 @@ themeSwitcher.addEventListener('click', function () {
         mode = 'dark';
         container.setAttribute('class', 'dark');
 
-        localStorage.setItem('mode', JSON.stringify(mode));
+        writeStorage('mode', mode);
     }
 });
 // TODO: Create functions to read and write from local storage
