@@ -1,7 +1,13 @@
 /*
   Form Styles
 */
-
+header {
+  height: 100px;
+}
+.mode {
+  display: flex;
+  justify-content: flex-end;
+}
 /*
   Tags
 */
@@ -32,6 +38,7 @@ form {
   display: flex;
   flex-flow: column wrap;
   position: relative;
+  flex-grow: 1;
 }
 
 form > *:not(label) {
@@ -70,6 +77,7 @@ textarea {
   border-width: 1px;
   font-size: 1rem;
   background-color: var(--light-accent);
+  width: 100%;
 }
 
 section {

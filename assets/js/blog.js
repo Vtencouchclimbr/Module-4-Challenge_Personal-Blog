@@ -1,7 +1,7 @@
 // TODO: Create a variable that selects the main element
 const mainEl = document.getElementById('mainContent');
 // TODO: Create a function that builds an element and appends it to the DOM
-const blogPostEl = function(post) {
+const createBlogPostEl = function(post) {
     const postEl = document.createElement('div');
     postEl.className = 'blog-post';
 
@@ -37,3 +37,4 @@ const renderPost = function() {
     });
 };
 renderPost();
+
