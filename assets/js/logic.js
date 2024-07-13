@@ -2,19 +2,24 @@
 const themeSwitcher = document.querySelector('#theme-switcher');
 const container = document.querySelector('.container');
 
-let mode = 'dark';
-
-themeSwitcher.addEventListener('click', function () {
-    if (mode === 'dark') {
-        mode = 'light';
-        container.setAttribute('class', 'light');
-    }   else {
-        mode = 'dark';
-        container.setAttribute('class', 'dark');
-
-        writeStorage('mode', mode);
+function applyMode() {
+    if (mode === 'light') {
+        container.setAttribute('class', 'container light');
+        themeSwitcher.textContent = '🌞';
+    } else {
+        container.setAttribute('class', 'container dark');
+        themeSwitcher.textContent = '🌙';
     }
+    writeStorage('mode', mode);
+}
+let mode = readStorage('mode') || 'dark';
+applyMode(mode);
+
+themeSwitcher.addEventListener('click', function() {
+    mode = (mode === 'dark') ? 'light' : 'dark';
+    applyMode(mode);
 });
+
 // TODO: Create functions to read and write from local storage
 function writeStorage(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
