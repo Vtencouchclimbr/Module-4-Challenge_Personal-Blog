@@ -2,23 +2,23 @@
 const mainEl = document.getElementById('mainContent');
 // TODO: Create a function that builds an element and appends it to the DOM
 const createBlogPostEl = function(post) {
-    const postEl = document.createElement('div');
-    postEl.className = 'article card blockquote';
+    const postEl = document.createElement('article');
+    postEl.className = 'card';
 
     const titleEl = document.createElement('h2');
     titleEl.textContent = post.title;
+    titleEl.className = '';
     postEl.appendChild(titleEl);
-    titleEl.className = 'article blockquote';
 
-    const contentEl = document.createElement('p');
+    const contentEl = document.createElement('blockquote');
     contentEl.textContent = post.content;
+    contentEl.className = '';
     postEl.appendChild(contentEl);
-    contentEl.className = 'article blockquote';
 
     const usernameEl = document.createElement('p');
     usernameEl.textContent = post.username;
+    usernameEl.className = '';
     postEl.appendChild(usernameEl);
-    usernameEl.className = 'article blockquote';
 
     mainEl.appendChild(postEl);
 };
