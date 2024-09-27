@@ -1,31 +1,34 @@
-// TODO: Create logic to toggle the light/dark mode styles for the page and circle. The mode should be saved to local storage.
-const themeSwitcher = document.querySelector('#theme-switcher');
-const container = document.querySelector('.container');
+// Function to toggle light/dark mode styles for the page
+function toggleMode() {
+    const body = document.body;
+    const currentMode = body.classList.contains('dark') ? 'dark' : 'light';
 
-function applyMode() {
-    if (mode === 'light') {
-        container.setAttribute('class', 'container light');
-        themeSwitcher.textContent = '🌞';
+    if (currentMode === 'light') {
+        body.classList.add('dark');
+        saveMode('dark');
     } else {
-        container.setAttribute('class', 'container dark');
-        themeSwitcher.textContent = '🌙';
+        body.classList.remove('dark');
+        saveMode('light');
     }
-    writeStorage('mode', mode);
 }
-let mode = readStorage('mode') || 'dark';
-applyMode(mode);
 
-themeSwitcher.addEventListener('click', function() {
-    mode = (mode === 'dark') ? 'light' : 'dark';
-    applyMode(mode);
+// Function to save mode to local storage
+function saveMode(mode) {
+    localStorage.setItem('mode', mode);
+}
+
+// Function to read mode from local storage
+function getMode() {
+    return localStorage.getItem('mode') || 'light';
+}
+
+// Initialize mode on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedMode = getMode();
+    if (savedMode === 'dark') {
+        document.body.classList.add('dark');
+    }
 });
 
-// TODO: Create functions to read and write from local storage
-function writeStorage(key, data) {
-    localStorage.setItem(key, JSON.stringify(data));
-}
-
-function readStorage(key) {
-    const data = localStorage.getItem(key);
-    return JSON.parse(data);
-}
+// Event listener for toggling mode
+document.getElementById('toggle-button').addEventListener('click', toggleMode);

@@ -1,32 +1,37 @@
-// TODO: Create a variable that selects the form element
-const formEl = document.getElementById('form');
-// TODO: Create a function that handles the form submission. Grab the form data and store it in local storage, then redirect to the blog page using the redirectPage function. If the form is submitted with missing data, display an error message to the user.
-let formSubmission = function(event) {
-  event.preventDefault();
+// Select the form element
+const form = document.querySelector('form');
 
-  const username = document.getElementById('usernameInput').value;
-  const title = document.getElementById('titleInput').value;
-  const content = document.getElementById('contentInput').value;
+// Function to handle the form submission
+function handleFormSubmission(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
 
-  if(!username || !title || !content) {
-    alert("Please complete all fields to continue");
+  const formData = new FormData(form);
+  const formObject = {};
+
+  // Convert FormData to a plain object
+  formData.forEach((value, key) => {
+    formObject[key] = value;
+    console.log(`${key}: ${value}`);
+  });
+
+  // Check for missing data
+  if (Object.values(formObject).some(value => !value)) {
+    alert('Please fill in all fields.');
     return;
   }
-  
-  const formData = {
-    username: username,
-    title: title,
-    content: content
-  };
 
-  const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+  // Retrieve existing blog posts from local storage
+  const existingPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
 
-  blogPosts.push(formData);
+  // Add the new post to the existing posts
+  existingPosts.push(formObject);
 
-localStorage.setItem('formData', JSON.stringify(blogPosts));
+  // Store the updated posts array in local storage
+  localStorage.setItem('blogPosts', JSON.stringify(existingPosts));
 
-redirectPage('blog.html');
-};
+  // Redirect to the blog page
+  redirectPage('blog.html');
+}
 
 let redirectURL = '';
 
@@ -35,5 +40,5 @@ const redirectPage = function (url) {
   location.assign(url);
 };
 
-// TODO: Add an event listener to the form on submit. Call the function to handle the form submission.
-formEl.addEventListener('submit', formSubmission);
+// Add an event listener to the form on submit
+form.addEventListener('submit', handleFormSubmission);
